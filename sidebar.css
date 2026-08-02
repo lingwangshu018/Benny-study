@@ -1,0 +1,175 @@
+/* Benny Study · 左侧导航栏 v0.4 */
+:root { --sidebar-width: 224px; }
+
+@media (min-width: 981px) {
+  .app-shell { padding-left: var(--sidebar-width); }
+
+  .topbar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    padding: 22px 16px 18px;
+    background: linear-gradient(180deg,rgba(255,255,255,.96),rgba(243,248,255,.94));
+    border-right: 1px solid rgba(143,169,207,.22);
+    border-bottom: 0;
+    box-shadow: 18px 0 48px rgba(87,119,164,.08);
+    backdrop-filter: blur(18px);
+    overflow-y: auto;
+  }
+
+  .brand {
+    width: 100%;
+    padding: 6px 7px 18px;
+    border-bottom: 1px dashed rgba(126,156,202,.26);
+  }
+
+  .brand-mark {
+    width: 48px;
+    height: 48px;
+    border-radius: 17px;
+    background: linear-gradient(145deg,#edf5ff,#f8edf8);
+    box-shadow: 0 10px 24px rgba(91,124,176,.13);
+  }
+
+  .brand strong { font-size: 16px; color: #526aa5; }
+  .brand small { font-size: 11px; color: #98a4bb; }
+
+  .main-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow: visible;
+  }
+
+  .nav-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 11px 13px;
+    border-radius: 15px;
+    color: #65738f;
+    text-align: left;
+    font-size: 14px;
+    transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
+  }
+
+  .nav-button::before {
+    content: attr(data-icon);
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 28px;
+    border-radius: 10px;
+    background: rgba(238,244,255,.92);
+    font-size: 15px;
+  }
+
+  .nav-button:hover {
+    transform: translateX(3px);
+    background: rgba(235,243,255,.85);
+    color: #5370b3;
+  }
+
+  .nav-button.active {
+    background: linear-gradient(135deg,#e8f1ff,#eeeafe);
+    color: #4d68ad;
+    box-shadow: 0 9px 22px rgba(90,117,176,.12);
+  }
+
+  .nav-button.active::before {
+    background: #fff;
+    box-shadow: 0 6px 14px rgba(90,117,176,.12);
+  }
+
+  .top-actions {
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(126,156,202,.26);
+  }
+
+  .top-actions::before {
+    content: "🐰 今天也一起加油";
+    grid-column: 1 / -1;
+    padding: 12px;
+    border-radius: 15px;
+    background: linear-gradient(135deg,#f8f2ff,#edf6ff);
+    color: #7887a4;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .icon-button {
+    width: 100%;
+    height: 42px;
+    border-radius: 14px;
+  }
+
+  .content {
+    max-width: 1480px;
+    padding: 30px 30px 64px;
+  }
+}
+
+.sidebar-menu-button { display: none; }
+
+@media (max-width: 980px) {
+  .topbar {
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+  }
+
+  .sidebar-menu-button {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    background: #fff;
+    cursor: pointer;
+    color: #65738f;
+  }
+
+  .main-nav {
+    display: none;
+    grid-column: 1 / -1;
+    order: 4;
+    padding: 9px;
+    border-radius: 18px;
+    background: rgba(255,255,255,.96);
+    box-shadow: 0 16px 36px rgba(77,104,151,.12);
+  }
+
+  .topbar.nav-open .main-nav {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 7px;
+  }
+
+  .nav-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .nav-button::before { content: attr(data-icon); }
+}
+
+@media (max-width: 560px) {
+  .brand small { display: none; }
+  .topbar.nav-open .main-nav { grid-template-columns: 1fr; }
+  .top-actions { gap: 5px; }
+}
