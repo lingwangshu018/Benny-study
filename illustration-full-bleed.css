@@ -1,0 +1,225 @@
+/* Benny Study · Full-bleed illustration heroes v1 */
+
+/* 首页：插画铺满整张 Hero，文字与倒计时浮在图面上 */
+.hero-home-v01{
+  position:relative;
+  isolation:isolate;
+  display:block;
+  min-height:500px;
+  padding:46px 44px;
+  background:#789fd0;
+}
+.hero-home-v01::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,
+      rgba(55,98,157,.96) 0%,
+      rgba(72,121,181,.88) 30%,
+      rgba(70,106,164,.55) 49%,
+      rgba(54,77,126,.18) 70%,
+      rgba(38,52,91,.08) 100%),
+    linear-gradient(180deg,rgba(39,62,103,.08),rgba(39,62,103,.18));
+}
+.hero-home-v01::after{display:none}
+.hero-home-v01 .hero-copy{
+  position:relative;
+  z-index:3;
+  width:min(52%,660px);
+  padding:24px 16px 24px 20px;
+}
+.hero-home-v01 .hero-copy p{max-width:590px;text-shadow:0 2px 14px rgba(28,48,83,.18)}
+.hero-home-v01 .hero-copy h1{text-shadow:0 3px 20px rgba(28,48,83,.16)}
+.hero-home-v01 .hero-visual{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  min-height:0;
+  display:block;
+  pointer-events:none;
+}
+.hero-home-v01 .hero-art-frame{
+  position:absolute;
+  inset:0;
+  width:auto;
+  height:auto;
+  min-height:0;
+  border:0;
+  border-radius:inherit;
+  box-shadow:none;
+  animation:none;
+  background:#789fd0;
+}
+.hero-home-v01 .hero-art{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:67% center;
+}
+.hero-home-v01 .hero-art-placeholder{border-radius:inherit}
+.hero-home-v01 .countdown-v01{
+  z-index:4;
+  right:30px;
+  bottom:28px;
+  pointer-events:auto;
+}
+
+/* 错题库：主插画覆盖整张横幅 */
+.errors-hero{
+  position:relative;
+  isolation:isolate;
+  display:flex;
+  align-items:center;
+  min-height:330px;
+  padding:38px 42px;
+  overflow:hidden;
+  background:#eef7ff;
+}
+.errors-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(90deg,
+    rgba(250,252,255,.99) 0%,
+    rgba(250,252,255,.96) 31%,
+    rgba(250,252,255,.80) 48%,
+    rgba(250,252,255,.22) 70%,
+    rgba(250,252,255,.04) 100%);
+}
+.errors-hero>div:first-child{
+  position:relative;
+  z-index:2;
+  width:min(50%,650px);
+}
+.errors-hero-art{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:auto;
+  height:auto;
+  border:0;
+  border-radius:inherit;
+  box-shadow:none;
+  background:#eef7ff;
+}
+.errors-hero-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:67% center;
+}
+
+/* 考试中心：城堡插画覆盖整张目标卡 */
+.exam-hero{
+  position:relative;
+  isolation:isolate;
+  display:flex;
+  align-items:center;
+  min-height:330px;
+  padding:42px 46px;
+  overflow:hidden;
+  background:#eef4ff;
+}
+.exam-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(90deg,
+    rgba(244,248,255,.99) 0%,
+    rgba(245,247,255,.96) 30%,
+    rgba(247,244,255,.82) 49%,
+    rgba(255,248,241,.25) 72%,
+    rgba(255,248,241,.04) 100%);
+}
+.exam-hero>div:first-child{
+  position:relative;
+  z-index:2;
+  width:min(48%,610px);
+}
+.exam-hero-mark{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:auto;
+  height:auto;
+  min-width:0;
+  flex-basis:auto;
+  border:0;
+  border-radius:inherit;
+  box-shadow:none;
+  background:#eef4ff;
+}
+.exam-hero-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:67% center;
+}
+
+/* 平板：仍然保持全幅，但加强左侧遮罩 */
+@media(max-width:980px){
+  .hero-home-v01{min-height:470px;padding:34px 30px}
+  .hero-home-v01 .hero-copy{width:min(62%,610px)}
+  .hero-home-v01::before{
+    background:linear-gradient(90deg,rgba(55,98,157,.97) 0%,rgba(68,116,177,.88) 38%,rgba(55,83,136,.46) 64%,rgba(36,50,87,.10) 100%);
+  }
+  .errors-hero>div:first-child,.exam-hero>div:first-child{width:min(58%,610px)}
+}
+
+/* 手机：图片仍铺满，文字落在底部的柔和渐变区 */
+@media(max-width:650px){
+  .hero-home-v01{
+    min-height:560px;
+    padding:24px 20px 28px;
+    display:flex;
+    align-items:flex-end;
+    border-radius:24px;
+  }
+  .hero-home-v01::before{
+    background:linear-gradient(180deg,
+      rgba(38,58,96,.05) 0%,
+      rgba(43,70,114,.18) 30%,
+      rgba(55,94,150,.78) 57%,
+      rgba(55,98,157,.97) 100%);
+  }
+  .hero-home-v01 .hero-art{object-position:62% 24%}
+  .hero-home-v01 .hero-copy{
+    width:100%;
+    padding:190px 0 0;
+  }
+  .hero-home-v01 .hero-copy h1{font-size:36px}
+  .hero-home-v01 .countdown-v01{
+    top:16px;
+    right:14px;
+    bottom:auto;
+  }
+
+  .errors-hero,.exam-hero{
+    min-height:430px;
+    padding:24px;
+    align-items:flex-end;
+  }
+  .errors-hero::before,.exam-hero::before{
+    background:linear-gradient(180deg,
+      rgba(255,255,255,.03) 0%,
+      rgba(250,252,255,.18) 36%,
+      rgba(250,252,255,.88) 65%,
+      rgba(250,252,255,.99) 100%);
+  }
+  .errors-hero>div:first-child,.exam-hero>div:first-child{
+    width:100%;
+  }
+  .errors-hero-image{object-position:58% 25%}
+  .exam-hero-image{object-position:61% 28%}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-home-v01,.hero-home-v01 .hero-art-frame{animation:none}
+}
