@@ -1,0 +1,176 @@
+/* Benny Study · 首页 v0.1 收尾 */
+:root {
+  --home-gap: 18px;
+  --home-radius: 26px;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(4px);
+}
+body::before {
+  width: 440px;
+  height: 440px;
+  right: -120px;
+  top: 80px;
+  background: radial-gradient(circle, rgba(174,201,255,.32), rgba(174,201,255,0) 68%);
+}
+body::after {
+  width: 380px;
+  height: 380px;
+  left: 160px;
+  bottom: -150px;
+  background: radial-gradient(circle, rgba(246,208,231,.28), rgba(246,208,231,0) 70%);
+}
+
+.content {
+  position: relative;
+}
+.content::before {
+  content: "✦    ·    ✧        ·    ✦";
+  position: absolute;
+  top: 6px;
+  right: 42px;
+  color: rgba(129,157,218,.24);
+  letter-spacing: 13px;
+  font-size: 16px;
+  pointer-events: none;
+  animation: homeStars 5s ease-in-out infinite;
+}
+
+.home-shortcuts,
+.home-dashboard-grid,
+.home-secondary-grid {
+  gap: var(--home-gap);
+}
+
+.home-shortcut,
+.home-dashboard-card,
+.home-mini-panel,
+.card,
+.task-day {
+  border-radius: var(--home-radius);
+  border-color: rgba(211,224,245,.9);
+  box-shadow: 0 12px 34px rgba(91,119,174,.08);
+}
+
+.home-dashboard-card,
+.home-mini-panel {
+  position: relative;
+  overflow: hidden;
+}
+.home-dashboard-card::after,
+.home-mini-panel::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  right: -62px;
+  bottom: -68px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(172,203,250,.16), transparent 70%);
+  pointer-events: none;
+}
+
+.home-dashboard-head h2,
+.home-mini-panel header strong,
+.home-overview-title h2,
+.section-head h2 {
+  letter-spacing: .02em;
+  color: #314b7b;
+}
+
+.home-dashboard-head p,
+.section-head p,
+.home-overview-title p {
+  color: #8995ad;
+}
+
+.home-dashboard-grid {
+  margin-top: 18px;
+}
+.home-secondary-grid {
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+
+.home-shortcut {
+  min-height: 104px;
+}
+.shortcut-icon {
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.7);
+}
+
+.dashboard-task-row {
+  border-bottom-color: rgba(220,228,242,.8);
+}
+.dashboard-task-row:hover {
+  background: rgba(238,246,255,.68);
+}
+
+.dashboard-progress-ring {
+  box-shadow: inset 0 0 0 10px rgba(255,255,255,.62), 0 10px 24px rgba(94,121,181,.12);
+}
+
+.dashboard-pomodoro-button,
+.hero-primary,
+.primary {
+  box-shadow: 0 10px 22px rgba(103,137,209,.22);
+}
+
+.hero-home-v01,
+.home-shortcut,
+.home-dashboard-card,
+.home-mini-panel {
+  animation: homeRise .58s ease both;
+}
+.home-shortcut:nth-child(2) { animation-delay: .04s; }
+.home-shortcut:nth-child(3) { animation-delay: .08s; }
+.home-shortcut:nth-child(4) { animation-delay: .12s; }
+.home-shortcut:nth-child(5) { animation-delay: .16s; }
+
+@keyframes homeRise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes homeStars {
+  0%,100% { opacity: .45; transform: translateY(0); }
+  50% { opacity: .9; transform: translateY(-3px); }
+}
+
+@media (min-width: 1180px) {
+  .content { padding-top: 30px; }
+  .hero-home-v01 { margin-bottom: 2px; }
+}
+
+@media (max-width: 900px) {
+  .content::before { display: none; }
+  .home-shortcuts,
+  .home-dashboard-grid,
+  .home-secondary-grid { gap: 13px; }
+  .home-shortcut,
+  .home-dashboard-card,
+  .home-mini-panel { border-radius: 21px; }
+}
+
+@media (max-width: 620px) {
+  .content { padding-left: 11px; padding-right: 11px; }
+  .hero-home-v01 { border-radius: 24px; }
+  .home-shortcut { min-height: 92px; padding: 14px; }
+  .home-dashboard-card,
+  .home-mini-panel { padding: 15px; }
+  .home-dashboard-head { align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-home-v01,
+  .home-shortcut,
+  .home-dashboard-card,
+  .home-mini-panel,
+  .content::before { animation: none !important; }
+}
