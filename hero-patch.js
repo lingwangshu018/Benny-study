@@ -1,6 +1,7 @@
-// Benny Study homepage hero v0.1
+// Benny Study homepage hero v0.2
 (function () {
   const imageCandidates = [
+    "assets/illustrations/home/home-welcome-garden.png",
     "public/images/home/hero-banner.png",
     "public/home/hero-banner.png",
     "assets/illustrations/hero-banner.png",
@@ -16,7 +17,7 @@
 
   function heroPicture() {
     const sources = imageCandidates.map((src, index) =>
-      `<img class="hero-art${index ? " hero-art-fallback" : ""}" src="${src}" alt="兔兔和小狮子在温馨书房学习的插画" data-index="${index}">`
+      `<img class="hero-art${index ? " hero-art-fallback" : ""}" src="${src}" alt="兔兔和小狮子欢迎回到成长花园" data-index="${index}">`
     ).join("");
     return `<div class="hero-art-frame">${sources}<div class="hero-art-placeholder">🐰📚🦁</div></div>`;
   }
