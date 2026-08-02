@@ -22,7 +22,8 @@
   <link rel="stylesheet" href="training-advanced.css" />
   <link rel="stylesheet" href="training-history.css" />
   <link rel="stylesheet" href="cloud-center.css" />
-  <link rel="stylesheet" href="export-center.css" />
+  <link rel="stylesheet" href="standalone-export.css" />
+  <link rel="stylesheet" href="error-photos.css" />
 </head>
 <body>
   <div class="app-shell">
@@ -66,6 +67,7 @@
   <input id="jsonInput" type="file" accept="application/json,.json" hidden />
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="app.js"></script>
   <script src="import-patch.js"></script>
   <script src="hero-patch.js"></script>
@@ -84,6 +86,8 @@
   <script src="training-data-analysis.js"></script>
   <script src="training-history.js"></script>
   <script src="cloud-center.js"></script>
-  <script src="export-center.js"></script>
+  <script src="standalone-export.js"></script>
+  <script src="error-photos.js"></script>
+  <script src="error-photos-preserve.js"></script>
 </body>
 </html>
