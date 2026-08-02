@@ -1,0 +1,357 @@
+/* Benny Study · Illustrated panels v3 */
+
+.panel-illustration-cover{
+  position:relative!important;
+  isolation:isolate;
+  overflow:hidden!important;
+  background-image:var(--panel-image)!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+}
+.panel-illustration-cover::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.panel-illustration-cover>*{
+  position:relative;
+  z-index:1;
+}
+
+/* 首页快捷入口：沿用页面主插画，做轻量全覆盖裁切 */
+.shortcut-illustrated{
+  background-position:72% center!important;
+}
+.shortcut-illustrated::before{
+  background:linear-gradient(90deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.96) 45%,rgba(255,255,255,.68) 68%,rgba(255,255,255,.12) 100%);
+}
+.shortcut-illustrated::after{opacity:.18!important}
+.shortcut-illustrated .shortcut-icon{
+  background:rgba(255,255,255,.84)!important;
+  backdrop-filter:blur(9px);
+  box-shadow:0 7px 20px rgba(62,85,132,.12);
+}
+.shortcut-illustrated .shortcut-copy{max-width:68%}
+.shortcut-illustrated .shortcut-copy strong,
+.shortcut-illustrated .shortcut-copy small{
+  text-shadow:0 1px 9px rgba(255,255,255,.9);
+}
+.shortcut-pomodoro-illustrated{background-position:65% 29%!important}
+.shortcut-errors-illustrated{background-position:70% center!important}
+.shortcut-exams-illustrated{background-position:75% center!important}
+
+/* 首页今日任务 */
+.home-tasks-panel-cover{
+  min-height:540px!important;
+  background-position:62% 58%!important;
+}
+.home-tasks-panel-cover::before{
+  background:
+    linear-gradient(180deg,rgba(250,250,255,.24) 0%,rgba(250,250,255,.58) 31%,rgba(253,253,255,.92) 61%,rgba(255,255,255,.985) 100%),
+    linear-gradient(90deg,rgba(255,255,255,.82),rgba(255,255,255,.18));
+}
+.home-tasks-panel-cover::after{display:none!important}
+.home-tasks-panel-cover .home-dashboard-head{
+  padding:12px 14px;
+  border:1px solid rgba(255,255,255,.68);
+  border-radius:18px;
+  background:rgba(255,255,255,.73);
+  backdrop-filter:blur(12px);
+}
+.home-tasks-panel-cover .dashboard-task-row{
+  background:rgba(255,255,255,.84)!important;
+  border-color:rgba(221,229,244,.82)!important;
+  backdrop-filter:blur(10px);
+}
+.home-tasks-panel-cover .dashboard-more{
+  display:inline-flex;
+  width:max-content;
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.76);
+  backdrop-filter:blur(9px);
+}
+
+/* 首页学习进度 */
+.home-progress-panel-cover{
+  min-height:540px!important;
+  background-position:66% 55%!important;
+}
+.home-progress-panel-cover::before{
+  background:linear-gradient(90deg,rgba(255,255,255,.985) 0%,rgba(255,255,255,.95) 45%,rgba(255,255,255,.76) 65%,rgba(255,255,255,.16) 100%);
+}
+.home-progress-panel-cover::after{display:none!important}
+.home-progress-panel-cover .home-dashboard-head{
+  padding:11px 13px;
+  border-radius:18px;
+  background:rgba(255,255,255,.76);
+  backdrop-filter:blur(11px);
+}
+.home-progress-panel-cover .dashboard-progress-ring::after{background:rgba(255,255,255,.9)!important}
+.home-progress-panel-cover .dashboard-progress-bars{
+  padding:14px;
+  border:1px solid rgba(255,255,255,.72);
+  border-radius:18px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(12px);
+}
+
+/* 首页错题本与近期复盘 */
+.home-errors-panel-cover,
+.home-weekly-panel-cover{
+  min-height:225px!important;
+  background-position:72% center!important;
+}
+.home-errors-panel-cover::before,
+.home-weekly-panel-cover::before{
+  background:linear-gradient(90deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.96) 43%,rgba(255,255,255,.74) 66%,rgba(255,255,255,.10) 100%);
+}
+.home-errors-panel-cover header,
+.home-weekly-panel-cover header{
+  padding:8px 10px;
+  border-radius:15px;
+  background:rgba(255,255,255,.69);
+  backdrop-filter:blur(10px);
+}
+.home-errors-panel-cover .mini-list-row,
+.home-weekly-panel-cover .mini-list-row,
+.home-errors-panel-cover .mini-empty,
+.home-weekly-panel-cover .mini-empty{
+  width:64%;
+  padding:9px 10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(9px);
+}
+
+/* 今日任务三时段：竖图完整展示，上图下内容 */
+.today-period-panel-cover{
+  min-height:680px!important;
+  padding-top:255px!important;
+  background-position:center top!important;
+}
+.today-period-panel-cover::before{
+  background:linear-gradient(180deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,.10) 31%,rgba(255,255,255,.74) 43%,rgba(255,255,255,.96) 58%,rgba(255,255,255,.995) 100%);
+}
+.today-period-panel-cover .today-column-head{
+  padding:11px 12px;
+  border:1px solid rgba(255,255,255,.68);
+  border-radius:17px;
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(12px);
+}
+.today-period-panel-cover .today-task-item{
+  background:rgba(255,255,255,.86)!important;
+  border-color:rgba(224,230,241,.84)!important;
+  backdrop-filter:blur(9px);
+}
+.today-period-panel-cover .evening-note,
+.today-period-panel-cover .evening-checklist{
+  background:rgba(255,255,255,.78)!important;
+  backdrop-filter:blur(10px);
+}
+.today-period-panel-cover .evening-note{
+  padding:15px;
+  border-radius:18px;
+}
+.today-morning-panel-cover{background-position:52% top!important}
+.today-afternoon-panel-cover{background-position:54% top!important}
+.today-evening-panel-cover{background-position:50% top!important}
+
+/* 每周复盘两张数据卡 */
+.weekly-detail-panel-cover{
+  min-height:360px!important;
+  background-position:72% center!important;
+}
+.weekly-detail-panel-cover::before{
+  background:linear-gradient(90deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.965) 45%,rgba(255,255,255,.78) 66%,rgba(255,255,255,.12) 100%);
+}
+.weekly-detail-panel-cover header{
+  width:62%;
+  padding:10px 12px;
+  border-radius:17px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(10px);
+}
+.weekly-detail-panel-cover .review-module-row,
+.weekly-detail-panel-cover .review-insight,
+.weekly-detail-panel-cover .review-suggestion,
+.weekly-detail-panel-cover .review-empty{
+  width:62%;
+  background:rgba(255,255,255,.78)!important;
+  backdrop-filter:blur(10px);
+}
+.weekly-detail-panel-cover .review-module-row,
+.weekly-detail-panel-cover .review-insight{
+  padding:10px 12px;
+  border-radius:14px;
+}
+.weekly-detail-panel-cover .review-suggestion,
+.weekly-detail-panel-cover .review-empty{
+  padding:14px;
+  border-radius:16px;
+}
+.weekly-summary-panel-cover{background-position:74% center!important}
+
+/* 训练总览：已有大厅图覆盖三项统计 */
+.training-summary-panel-cover{
+  padding:28px!important;
+  border:1px solid rgba(199,213,239,.86);
+  border-radius:28px;
+  background-position:center 48%!important;
+  box-shadow:0 18px 44px rgba(70,91,143,.11);
+}
+.training-summary-panel-cover::before{
+  background:linear-gradient(90deg,rgba(247,249,255,.76),rgba(250,246,255,.54),rgba(255,255,255,.28));
+  backdrop-filter:blur(1px);
+}
+.training-summary-panel-cover>div{
+  border:1px solid rgba(255,255,255,.75)!important;
+  background:rgba(255,255,255,.78)!important;
+  backdrop-filter:blur(13px);
+  box-shadow:0 12px 30px rgba(73,94,145,.10);
+}
+
+/* 训练分区卡 */
+.training-zone-panel-cover{
+  min-height:220px!important;
+  padding:28px 30px!important;
+  background-position:73% center!important;
+  align-items:center!important;
+}
+.training-zone-panel-cover::before{
+  background:linear-gradient(90deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.965) 42%,rgba(255,255,255,.72) 63%,rgba(255,255,255,.08) 100%);
+}
+.training-zone-panel-cover::after{opacity:.08!important}
+.training-zone-panel-cover .training-zone-icon{
+  background:rgba(255,255,255,.84)!important;
+  backdrop-filter:blur(10px);
+  box-shadow:0 9px 24px rgba(75,94,141,.12);
+}
+.training-zone-panel-cover>span:nth-child(2){max-width:56%}
+.training-zone-panel-cover em{
+  background:rgba(255,255,255,.78)!important;
+  backdrop-filter:blur(9px);
+}
+.training-zone-arithmetic-cover{background-position:72% center!important}
+.training-zone-reasoning-cover{background-position:72% center!important}
+.training-zone-thinking-cover{background-position:72% center!important}
+.training-zone-data-cover{background-position:72% center!important}
+
+/* 最近训练空状态 */
+.training-history-empty-cover{
+  min-height:340px!important;
+  background-position:69% center!important;
+}
+.training-history-empty-cover::before{
+  background:linear-gradient(90deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.96) 44%,rgba(255,255,255,.66) 67%,rgba(255,255,255,.06) 100%);
+}
+.training-history-empty-cover header{
+  width:58%;
+  padding:10px 12px;
+  border-radius:17px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(10px);
+}
+.training-history-empty-cover .training-history-list{width:58%}
+.training-history-empty-cover .training-empty{
+  min-height:150px;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  border-radius:18px;
+  background:rgba(255,255,255,.76)!important;
+  backdrop-filter:blur(10px);
+}
+
+@media(max-width:1100px){
+  .home-tasks-panel-cover,
+  .home-progress-panel-cover{min-height:500px!important}
+  .today-period-panel-cover{min-height:640px!important;padding-top:230px!important}
+  .weekly-detail-panel-cover{min-height:330px!important}
+  .training-zone-panel-cover{min-height:205px!important}
+}
+
+@media(max-width:820px){
+  .shortcut-illustrated .shortcut-copy{max-width:72%}
+  .home-tasks-panel-cover,
+  .home-progress-panel-cover{min-height:520px!important}
+  .home-errors-panel-cover,
+  .home-weekly-panel-cover{min-height:250px!important}
+  .today-period-panel-cover{min-height:660px!important;padding-top:245px!important}
+  .weekly-detail-panel-cover{
+    min-height:500px!important;
+    padding-top:255px!important;
+    background-position:center top!important;
+  }
+  .weekly-detail-panel-cover::before{
+    background:linear-gradient(180deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,.14) 36%,rgba(255,255,255,.88) 61%,rgba(255,255,255,.995) 100%);
+  }
+  .weekly-detail-panel-cover header,
+  .weekly-detail-panel-cover .review-module-row,
+  .weekly-detail-panel-cover .review-insight,
+  .weekly-detail-panel-cover .review-suggestion,
+  .weekly-detail-panel-cover .review-empty{width:100%}
+
+  .training-zone-panel-cover{
+    min-height:360px!important;
+    padding:205px 22px 24px!important;
+    align-items:flex-start!important;
+    background-position:center top!important;
+  }
+  .training-zone-panel-cover::before{
+    background:linear-gradient(180deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,.16) 38%,rgba(255,255,255,.88) 62%,rgba(255,255,255,.995) 100%);
+  }
+  .training-zone-panel-cover>span:nth-child(2){max-width:100%}
+  .training-history-empty-cover{
+    min-height:450px!important;
+    padding-top:220px!important;
+    background-position:center top!important;
+  }
+  .training-history-empty-cover::before{
+    background:linear-gradient(180deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,.12) 38%,rgba(255,255,255,.88) 62%,rgba(255,255,255,.995) 100%);
+  }
+  .training-history-empty-cover header,
+  .training-history-empty-cover .training-history-list{width:100%}
+}
+
+@media(max-width:560px){
+  .shortcut-illustrated{min-height:96px;background-position:75% center!important}
+  .shortcut-illustrated::before{
+    background:linear-gradient(90deg,rgba(255,255,255,.995) 0%,rgba(255,255,255,.97) 58%,rgba(255,255,255,.28) 100%);
+  }
+  .shortcut-illustrated .shortcut-copy{max-width:76%}
+
+  .home-tasks-panel-cover,
+  .home-progress-panel-cover{
+    min-height:500px!important;
+    background-position:center top!important;
+  }
+  .home-tasks-panel-cover::before,
+  .home-progress-panel-cover::before{
+    background:linear-gradient(180deg,rgba(255,255,255,.08) 0%,rgba(255,255,255,.34) 30%,rgba(255,255,255,.90) 58%,rgba(255,255,255,.995) 100%);
+  }
+  .home-errors-panel-cover,
+  .home-weekly-panel-cover{
+    min-height:270px!important;
+    background-position:68% center!important;
+  }
+  .home-errors-panel-cover .mini-list-row,
+  .home-weekly-panel-cover .mini-list-row,
+  .home-errors-panel-cover .mini-empty,
+  .home-weekly-panel-cover .mini-empty{width:78%}
+
+  .today-period-panel-cover{
+    min-height:640px!important;
+    padding-top:220px!important;
+  }
+  .training-summary-panel-cover{padding:16px!important}
+  .training-zone-panel-cover{min-height:340px!important;padding-top:190px!important}
+  .training-history-empty-cover{min-height:420px!important;padding-top:190px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .panel-illustration-cover{transition:none!important}
+}
