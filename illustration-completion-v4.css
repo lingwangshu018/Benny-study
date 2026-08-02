@@ -1,0 +1,362 @@
+/* Benny Study · final illustration layouts v4 */
+
+.v4-art-cover{
+  position:relative!important;
+  isolation:isolate;
+  overflow:hidden!important;
+  background-image:var(--v4-art)!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+}
+.v4-art-cover::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.v4-art-cover>*{
+  position:relative;
+  z-index:2;
+}
+
+/* 完整课程库 */
+.courses-stat-art{
+  min-height:112px;
+  background-position:center 48%!important;
+}
+.courses-stat-art::after{
+  background:linear-gradient(110deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.9) 48%,rgba(255,255,255,.42) 100%);
+}
+.courses-stat-art-1{background-position:8% 52%!important}
+.courses-stat-art-2{background-position:36% 52%!important}
+.courses-stat-art-3{background-position:66% 52%!important}
+.courses-stat-art-4{background-position:94% 52%!important}
+.courses-stat-art span,.courses-stat-art strong{text-shadow:0 1px 10px rgba(255,255,255,.94)}
+
+.courses-filter-art{
+  background-position:right center!important;
+  padding:22px!important;
+}
+.courses-filter-art::after{
+  background:linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.94) 64%,rgba(255,255,255,.48) 100%);
+}
+.courses-filter-art label{
+  padding:8px 10px;
+  border-radius:15px;
+  background:rgba(255,255,255,.7);
+  backdrop-filter:blur(10px);
+}
+.courses-filter-art input,.courses-filter-art select{
+  background:rgba(255,255,255,.88)!important;
+  backdrop-filter:blur(8px);
+}
+
+/* 每日执行计划 */
+.plan-header-art{
+  min-height:205px;
+  background-position:right 48%!important;
+}
+.plan-header-art::before{background:none!important}
+.plan-header-art::after{
+  background:linear-gradient(90deg,rgba(248,251,255,.98) 0%,rgba(248,251,255,.88) 45%,rgba(248,251,255,.22) 76%,rgba(255,255,255,.03) 100%);
+}
+.plan-header-art>div:first-child{
+  padding:18px 20px;
+  border-radius:22px;
+  background:rgba(255,255,255,.66);
+  backdrop-filter:blur(13px);
+}
+.plan-header-art .plan-week-summary{
+  background:rgba(255,255,255,.8)!important;
+  backdrop-filter:blur(13px);
+}
+
+.plan-day-art{
+  min-height:620px;
+  background-position:center top!important;
+}
+.plan-day-art::after{
+  background:linear-gradient(180deg,rgba(255,255,255,.44) 0%,rgba(255,255,255,.74) 24%,rgba(255,255,255,.94) 48%,rgba(255,255,255,.985) 100%);
+}
+.plan-day-start-art{background-position:70% top!important}
+.plan-day-middle-art{background-position:68% top!important}
+.plan-day-weekend-art{background-position:70% top!important}
+.plan-day-art>header{
+  padding:13px 14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.77);
+  backdrop-filter:blur(12px);
+}
+.plan-day-art .plan-day-progress{padding:8px 4px}
+.plan-day-art>section{
+  background:rgba(255,255,255,.78)!important;
+  border:1px solid rgba(225,231,244,.7);
+  backdrop-filter:blur(11px);
+  box-shadow:0 8px 22px rgba(69,91,135,.05);
+}
+.plan-day-art>footer{
+  padding:11px 13px;
+  border-radius:16px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(10px);
+}
+
+/* 学习进度 */
+.progress-stat-art{
+  min-height:132px;
+  background-position:center 50%!important;
+}
+.progress-stat-art::after{
+  background:linear-gradient(105deg,rgba(255,255,255,.97),rgba(255,255,255,.84) 58%,rgba(255,255,255,.32));
+}
+.progress-stat-art-1{background-position:6% center!important}
+.progress-stat-art-2{background-position:35% center!important}
+.progress-stat-art-3{background-position:65% center!important}
+.progress-stat-art-4{background-position:94% center!important}
+.progress-stat-art span,.progress-stat-art strong,.progress-stat-art small{text-shadow:0 1px 10px rgba(255,255,255,.96)}
+
+.progress-trend-art{
+  min-height:385px;
+  background-position:center 58%!important;
+}
+.progress-trend-art::after{
+  background:linear-gradient(180deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.67) 38%,rgba(255,255,255,.88) 100%);
+}
+.progress-trend-art>header{
+  padding:12px 14px;
+  border-radius:17px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(11px);
+}
+.progress-trend-art .stats-bars{
+  padding:18px;
+  border-radius:22px;
+  background:rgba(255,255,255,.67);
+  backdrop-filter:blur(12px);
+}
+
+.progress-overall-art{
+  min-height:385px;
+  background-position:center bottom!important;
+}
+.progress-overall-art::after{
+  background:radial-gradient(circle at 50% 54%,rgba(255,255,255,.96) 0 22%,rgba(255,255,255,.76) 44%,rgba(255,255,255,.22) 100%);
+}
+.progress-overall-art>header{
+  padding:12px;
+  border-radius:17px;
+  background:rgba(255,255,255,.68);
+  backdrop-filter:blur(10px);
+}
+.progress-overall-art .stats-ring{background:rgba(255,255,255,.66);backdrop-filter:blur(9px)}
+.progress-overall-art>p{
+  display:inline-block;
+  padding:9px 13px;
+  border-radius:999px;
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(9px);
+}
+
+.progress-stages-art{
+  min-height:320px;
+  background-position:center top!important;
+}
+.progress-stages-art::after{
+  background:linear-gradient(180deg,rgba(255,255,255,.76),rgba(255,255,255,.91) 54%,rgba(255,255,255,.97));
+}
+.progress-stages-art>header,.progress-modules-art>header{
+  padding:12px 14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(11px);
+}
+.progress-stages-art .stats-phase-card{
+  background:rgba(255,255,255,.78)!important;
+  backdrop-filter:blur(11px);
+}
+
+.progress-modules-art{
+  min-height:410px;
+  background-position:right bottom!important;
+}
+.progress-modules-art::after{
+  background:linear-gradient(90deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.88) 68%,rgba(255,255,255,.36) 100%);
+}
+.progress-modules-art .stats-module-list{
+  padding:17px;
+  border-radius:20px;
+  background:rgba(255,255,255,.7);
+  backdrop-filter:blur(12px);
+}
+
+/* 考试中心详情 */
+.exam-detail-art{
+  background-position:right top!important;
+}
+.exam-detail-art::after{
+  background:linear-gradient(180deg,rgba(246,249,255,.48) 0%,rgba(250,251,255,.76) 25%,rgba(255,255,255,.96) 52%,rgba(255,255,255,.99) 100%);
+}
+.exam-detail-art>header,.exam-detail-art .exam-phase-list,.exam-detail-art .exam-status{
+  padding:13px 15px;
+  border-radius:17px;
+  background:rgba(255,255,255,.74);
+  backdrop-filter:blur(12px);
+}
+.exam-card.next::before{z-index:5}
+.exam-adjustment-art{
+  margin-top:18px!important;
+  padding:20px!important;
+  border-radius:22px;
+  background-position:right bottom!important;
+  border:1px solid rgba(157,177,216,.22);
+}
+.exam-adjustment-art::after{
+  background:linear-gradient(90deg,rgba(255,255,255,.97),rgba(255,255,255,.91) 70%,rgba(255,255,255,.44));
+}
+.exam-adjustment-art label{
+  padding:10px;
+  border-radius:15px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(9px);
+}
+.exam-adjustment-art input,.exam-adjustment-art textarea{background:rgba(255,255,255,.9)!important}
+
+/* 番茄钟补强 */
+.pomodoro-stat-art{
+  min-height:126px;
+  background-position:center 52%!important;
+}
+.pomodoro-stat-art::after{
+  background:linear-gradient(110deg,rgba(255,255,255,.97),rgba(255,255,255,.84) 58%,rgba(255,255,255,.31));
+}
+.pomodoro-stat-art-1{background-position:7% center!important}
+.pomodoro-stat-art-2{background-position:36% center!important}
+.pomodoro-stat-art-3{background-position:66% center!important}
+.pomodoro-stat-art-4{background-position:94% center!important}
+.pomodoro-stat-art span,.pomodoro-stat-art strong{text-shadow:0 1px 10px rgba(255,255,255,.96)}
+
+.pomodoro-history-art{
+  min-height:680px;
+  background-position:center bottom!important;
+}
+.pomodoro-history-art::after{
+  background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.73) 34%,rgba(255,255,255,.88) 100%);
+}
+.pomodoro-history-art>header{
+  padding:13px 15px;
+  border-radius:18px;
+  background:rgba(255,255,255,.73);
+  backdrop-filter:blur(12px);
+}
+.pomodoro-history-art .focus-records{
+  padding:14px;
+  border-radius:20px;
+  background:rgba(255,255,255,.67);
+  backdrop-filter:blur(12px);
+}
+.pomodoro-history-art .focus-record{background:rgba(255,255,255,.78)!important}
+.pomodoro-history-art .focus-empty{
+  min-height:210px;
+  display:grid;
+  place-items:center;
+  border-radius:19px;
+  background:rgba(255,255,255,.69);
+  backdrop-filter:blur(11px);
+}
+
+/* 侧边栏：单兔头像 + 桌面与移动端不同装饰 */
+.brand-mark.sidebar-avatar-ready{
+  overflow:hidden;
+  padding:0!important;
+  background:#eef3ff!important;
+}
+.sidebar-avatar-image{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+.sidebar-desktop-decor,.sidebar-mobile-decor{display:none}
+
+@media (min-width:981px){
+  .topbar{background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(244,246,255,.96))!important}
+  .sidebar-desktop-decor{
+    display:block;
+    width:100%;
+    min-height:126px;
+    margin-top:auto;
+    border-radius:20px;
+    background-image:var(--sidebar-desktop-art);
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center 48%;
+    border:1px solid rgba(157,174,215,.2);
+    box-shadow:0 12px 28px rgba(83,105,154,.1);
+  }
+  .top-actions{margin-top:0!important}
+  .top-actions::before{background:rgba(246,241,255,.82)!important;backdrop-filter:blur(9px)}
+}
+
+@media (max-width:1100px){
+  .courses-filter-art::after,.progress-modules-art::after,.exam-adjustment-art::after{
+    background:rgba(255,255,255,.88);
+  }
+  .plan-day-art{min-height:580px}
+}
+
+@media (max-width:980px){
+  .brand-mark{width:44px!important;height:44px!important;border-radius:15px!important}
+  .topbar.nav-open .main-nav{max-height:calc(100vh - 92px);overflow-y:auto}
+  .sidebar-mobile-decor{
+    display:block;
+    grid-column:1 / -1;
+    min-height:150px;
+    border-radius:18px;
+    background-image:var(--sidebar-mobile-art);
+    background-size:cover;
+    background-position:center 38%;
+    border:1px solid rgba(157,174,215,.2);
+    box-shadow:0 10px 24px rgba(79,103,153,.1);
+  }
+  .plan-header-art{min-height:230px;background-position:68% center!important}
+  .plan-header-art::after{background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.93) 64%,rgba(255,255,255,.98))}
+  .plan-day-art{min-height:540px}
+  .progress-trend-art,.progress-overall-art{min-height:350px}
+  .pomodoro-history-art{min-height:500px}
+}
+
+@media (max-width:680px){
+  .courses-stat-art,.progress-stat-art,.pomodoro-stat-art{min-height:108px}
+  .courses-filter-art{padding:15px!important;background-position:72% center!important}
+  .courses-filter-art::after{background:rgba(255,255,255,.91)}
+  .plan-header-art{min-height:260px;background-position:72% top!important}
+  .plan-header-art>div:first-child{margin-top:100px;width:100%}
+  .plan-day-art{
+    min-height:auto;
+    padding-top:148px!important;
+    background-position:center top!important;
+    background-size:auto 210px!important;
+    background-color:#fff!important;
+  }
+  .plan-day-art::after{
+    background:linear-gradient(180deg,rgba(255,255,255,.05) 0 110px,rgba(255,255,255,.86) 180px,rgba(255,255,255,.99) 245px);
+  }
+  .progress-trend-art,.progress-overall-art,.progress-stages-art,.progress-modules-art{
+    background-position:center top!important;
+  }
+  .progress-trend-art::after,.progress-overall-art::after,.progress-stages-art::after,.progress-modules-art::after{
+    background:rgba(255,255,255,.84);
+  }
+  .exam-detail-art{background-position:72% top!important}
+  .exam-detail-art::after{background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,.94) 280px,rgba(255,255,255,.99))}
+  .exam-adjustment-art{padding:13px!important}
+  .pomodoro-history-art{background-position:68% top!important}
+  .pomodoro-history-art::after{background:rgba(255,255,255,.84)}
+  .sidebar-mobile-decor{min-height:120px;background-position:center 36%}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .v4-art-cover,.sidebar-desktop-decor,.sidebar-mobile-decor{background-attachment:initial!important}
+}
