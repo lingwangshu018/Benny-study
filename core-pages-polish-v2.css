@@ -1,0 +1,113 @@
+/* Growth Garden · 核心页面重点精修 v2 */
+
+/* 错题花园 */
+.errors-page{gap:22px}
+.errors-hero{position:relative;overflow:hidden;padding:30px;background:linear-gradient(135deg,rgba(255,250,252,.98),rgba(239,247,255,.98) 56%,rgba(244,240,255,.98));box-shadow:0 22px 55px rgba(82,111,154,.11)}
+.errors-hero:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-70px;top:-100px;background:rgba(255,255,255,.55)}
+.errors-hero:after{content:"✦  🌱  ✦";position:absolute;right:25px;bottom:13px;color:rgba(107,133,172,.35);letter-spacing:7px;font-size:13px}
+.errors-hero h1{font-size:clamp(30px,4vw,40px);color:var(--ink-strong);letter-spacing:.3px}
+.errors-hero-art{position:relative;z-index:1;filter:drop-shadow(0 10px 14px rgba(85,110,150,.14));animation:garden-bob 3.8s ease-in-out infinite}
+@keyframes garden-bob{50%{transform:translateY(-5px) rotate(1deg)}}
+.errors-stats{gap:14px}
+.errors-stat{position:relative;overflow:hidden;padding:19px 18px;border-radius:23px;transition:.22s ease}
+.errors-stat:after{content:"";position:absolute;right:-18px;bottom:-25px;width:82px;height:82px;border-radius:50%;background:rgba(142,183,228,.08)}
+.errors-stat:nth-child(2):after{background:rgba(129,196,148,.10)}
+.errors-stat:nth-child(3):after{background:rgba(244,192,118,.11)}
+.errors-stat:nth-child(4):after{background:rgba(207,150,201,.10)}
+.errors-stat:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(76,104,149,.1)}
+.errors-stat b{font-size:30px;color:var(--ink-strong)}
+.errors-actions{padding:14px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.7);box-shadow:var(--shadow-soft)}
+.errors-toolbar{padding:16px;border-radius:22px;box-shadow:var(--shadow-soft)}
+.error-card{position:relative;overflow:hidden;padding:20px;border-radius:25px;transition:.22s ease}
+.error-card:before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,#a7c9ea,#d6c6ee,#f5cad9);opacity:.75}
+.error-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(71,101,146,.12)}
+.error-card.is-mastered:before{background:linear-gradient(90deg,#9bd2ad,#d3edcf)}
+.error-flower{width:46px;height:46px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(145deg,#fff,#f4f7ff);box-shadow:inset 0 0 0 1px rgba(130,160,202,.13),0 8px 20px rgba(87,115,155,.08)}
+.error-card h3{font-size:18px}
+.error-card-tags{margin-top:2px}
+.error-tag{border:1px solid rgba(125,158,204,.12);font-weight:700}
+.error-card-body{gap:10px}
+.error-line{padding:12px 13px;border:1px solid rgba(134,165,207,.11);background:linear-gradient(145deg,#fbfdff,#f7f9fe)}
+.error-card-footer{padding-top:4px;border-top:1px dashed rgba(130,159,199,.22)}
+.error-editor{padding:22px;border-radius:26px;box-shadow:0 18px 46px rgba(75,103,147,.1)}
+.error-editor h2{margin:0;color:var(--ink-strong)}
+.error-photo-field{border-radius:20px!important;background:linear-gradient(145deg,#fbfdff,#f8f4ff)!important}
+
+/* 行测训练室 */
+.training-summary>div{position:relative;overflow:hidden;padding:22px;border-radius:25px}
+.training-summary>div:after{content:"";position:absolute;width:86px;height:86px;border-radius:50%;right:-22px;bottom:-32px;background:rgba(123,169,219,.09)}
+.training-summary>div:nth-child(2):after{background:rgba(169,150,216,.10)}
+.training-summary>div:nth-child(3):after{background:rgba(119,190,158,.10)}
+.training-summary strong{font-size:29px}
+.training-hall{gap:20px}
+.training-zone{position:relative;overflow:hidden;min-height:155px;padding:27px;border:1px solid rgba(129,163,207,.15);box-shadow:0 18px 42px rgba(61,99,148,.1)}
+.training-zone:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-55px;bottom:-80px;background:rgba(126,174,223,.12)}
+.training-zone.reasoning:after{background:rgba(170,151,220,.13)}
+.training-zone.thinking:after{background:rgba(222,159,198,.12)}
+.training-zone.data:after{background:rgba(112,194,161,.12)}
+.training-zone:hover{transform:translateY(-6px);box-shadow:0 24px 55px rgba(60,98,146,.15)}
+.training-zone-icon{width:62px;height:62px;display:grid;place-items:center;border-radius:21px;background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px rgba(130,160,200,.12),0 10px 24px rgba(74,105,146,.1)}
+.training-zone strong{font-size:21px}
+.training-zone em{position:relative;z-index:1;display:inline-flex;width:max-content;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.64);border:1px solid rgba(126,160,204,.13)}
+.training-history-card{padding:24px;border-radius:27px}
+.training-history-row{border:1px solid rgba(130,163,205,.1);transition:.2s ease}
+.training-history-row:hover{transform:translateX(3px);background:#f3f8ff}
+.training-type-card{position:relative;overflow:hidden;min-height:145px;border:1px solid rgba(130,160,203,.12);transition:.22s ease}
+.training-type-card:after{content:"";position:absolute;width:80px;height:80px;right:-30px;bottom:-32px;border-radius:50%;background:rgba(146,179,219,.09)}
+.training-type-card:hover{transform:translateY(-4px);box-shadow:0 20px 46px rgba(67,102,148,.13)}
+.training-setup-card{border-radius:28px;box-shadow:0 22px 58px rgba(72,106,151,.12)}
+.training-setup-art{position:relative;overflow:hidden}
+.training-setup-art:after{content:"✦";position:absolute;right:22px;top:15px;color:rgba(106,135,176,.28);font-size:24px}
+.training-question-card{position:relative;overflow:hidden;border-radius:30px;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(246,250,255,.98))}
+.training-question-card:before{content:"";position:absolute;width:230px;height:230px;border-radius:50%;right:-110px;top:-130px;background:rgba(173,157,220,.09)}
+.training-question{position:relative;z-index:1;text-shadow:0 6px 18px rgba(74,100,135,.08)}
+.training-answer-row input{border-radius:18px!important;padding:14px 16px!important;background:#fff!important;box-shadow:inset 0 0 0 1px rgba(122,158,204,.08)}
+.training-result-card{position:relative;overflow:hidden;border-radius:30px;background:linear-gradient(145deg,#fff,#f5f9ff 58%,#faf6ff)}
+.training-result-card:after{content:"✦  ✧  ✦";position:absolute;right:25px;top:20px;color:rgba(116,143,179,.24);letter-spacing:6px}
+.training-result-medal{filter:drop-shadow(0 10px 16px rgba(80,105,142,.15))}
+.training-result-stats>div{border:1px solid rgba(128,158,199,.1);background:rgba(246,250,255,.86)}
+
+/* 番茄专注室 */
+.focus-page{gap:22px}
+.focus-summary{gap:15px}
+.focus-stat{position:relative;overflow:hidden;padding:20px;border-radius:24px;transition:.22s ease}
+.focus-stat:after{content:"";position:absolute;width:78px;height:78px;border-radius:50%;right:-22px;bottom:-29px;background:rgba(153,172,220,.10)}
+.focus-stat:nth-child(2):after{background:rgba(241,166,183,.11)}
+.focus-stat:nth-child(3):after{background:rgba(128,192,157,.11)}
+.focus-stat:nth-child(4):after{background:rgba(226,183,116,.11)}
+.focus-stat:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(75,91,132,.11)}
+.focus-stat strong{font-size:30px;color:var(--ink-strong)}
+.focus-layout{gap:20px}
+.focus-timer-card,.focus-history-card{border-radius:30px;box-shadow:0 22px 58px rgba(68,83,125,.11)}
+.focus-timer-card{padding:32px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(248,246,255,.95))}
+.focus-timer-card:after{content:"🐰";position:absolute;left:28px;bottom:22px;font-size:38px;opacity:.18;transform:rotate(-8deg)}
+.focus-mode-tabs button{font-weight:700;transition:.2s ease}
+.focus-mode-tabs button:hover{transform:translateY(-1px)}
+.focus-clock{width:300px;height:300px;background:conic-gradient(#90acd9 calc(var(--focus-value)*1%),#edf1f8 0);box-shadow:0 26px 58px rgba(91,105,151,.19),inset 0 0 0 1px rgba(255,255,255,.7)}
+.focus-clock:before{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px dashed rgba(125,151,192,.18)}
+.focus-clock:after{inset:16px;background:radial-gradient(circle at 35% 25%,#fff,#f6f4ff 68%,#f0f4fb)}
+.focus-clock-content strong{font-size:60px;color:#465a7f;text-shadow:0 7px 20px rgba(70,90,125,.1)}
+.focus-task-field input{padding:15px 16px;border-radius:18px;background:rgba(255,255,255,.92);box-shadow:inset 0 0 0 1px rgba(125,153,194,.06)}
+.focus-history-card{padding:24px;background:rgba(255,255,255,.92)}
+.focus-records{padding-right:4px}
+.focus-record{border-radius:18px;background:linear-gradient(145deg,#fbfcff,#f6f8fd);transition:.2s ease}
+.focus-record:hover{transform:translateX(3px);border-color:rgba(130,159,201,.3)}
+.focus-record-icon{border-radius:15px;box-shadow:inset 0 0 0 1px rgba(128,151,191,.1)}
+.focus-empty{border:1px dashed rgba(128,156,197,.25)}
+
+@media(max-width:760px){
+  .errors-actions{padding:11px}
+  .training-zone{min-height:auto;padding:22px}
+  .focus-clock{width:250px;height:250px}
+  .focus-clock-content strong{font-size:48px}
+}
+@media(max-width:520px){
+  .errors-hero{padding:23px}
+  .errors-stat,.focus-stat{padding:16px}
+  .error-card{padding:17px}
+  .training-question-card{border-radius:24px}
+  .focus-timer-card{padding:22px 14px}
+  .focus-clock{width:220px;height:220px}
+  .focus-timer-card:after{display:none}
+}
+@media(prefers-reduced-motion:reduce){.errors-hero-art{animation:none}.error-card,.training-zone,.training-type-card,.focus-stat,.focus-record{transition:none}}
