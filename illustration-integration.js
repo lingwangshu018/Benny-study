@@ -1,4 +1,4 @@
-// Benny Study · Illustration Integration v2
+// Benny Study · Illustration Integration v3
 (function () {
   const ASSETS = {
     errors: "assets/illustrations/errors/errors-garden-main.png",
@@ -14,7 +14,25 @@
 
     pomodoroFocus: "assets/illustrations/pomodoro/pomodoro-focus-card.png",
     pomodoroBreak: "assets/illustrations/pomodoro/pomodoro-break-card.png",
-    pomodoroComplete: "assets/illustrations/pomodoro/pomodoro-complete-card.png"
+    pomodoroComplete: "assets/illustrations/pomodoro/pomodoro-complete-card.png",
+
+    homeTasks: "assets/illustrations/home/home-tasks-panel.png",
+    homeProgress: "assets/illustrations/home/home-progress-panel.png",
+    homeErrors: "assets/illustrations/home/home-errors-panel.png",
+    homeWeekly: "assets/illustrations/home/home-weekly-panel.png",
+
+    todayMorning: "assets/illustrations/today/today-morning-card.png",
+    todayAfternoon: "assets/illustrations/today/today-afternoon-card.png",
+    todayEvening: "assets/illustrations/today/today-evening-errors-card.png",
+
+    weeklyModules: "assets/illustrations/weekly/weekly-modules-panel.png",
+    weeklySummary: "assets/illustrations/weekly/weekly-summary-panel.png",
+
+    trainingArithmetic: "assets/illustrations/training/training-arithmetic-card.png",
+    trainingReasoning: "assets/illustrations/training/training-number-reasoning-card.png",
+    trainingThinking: "assets/illustrations/training/training-thinking-card.png",
+    trainingData: "assets/illustrations/training/training-data-analysis-card.png",
+    trainingHistoryEmpty: "assets/illustrations/training/training-history-empty.png"
   };
 
   function artImage(src, alt, className = "") {
@@ -29,13 +47,27 @@
     if (label) host.dataset.illustrationLabel = label;
   }
 
+  function setPanelCover(host, src, className, label) {
+    if (!host) return;
+    host.classList.add("panel-illustration-cover", className);
+    host.style.setProperty("--panel-image", `url("${src}")`);
+    host.dataset.panelIllustrationSrc = src;
+    if (label) host.dataset.panelIllustrationLabel = label;
+  }
+
+  function findPanelByHeading(selector, heading) {
+    return [...document.querySelectorAll(selector)].find(panel =>
+      panel.querySelector("header strong, header h2, header h3")?.textContent?.trim().includes(heading)
+    );
+  }
+
   function decorateCourses() {
     const hero = document.querySelector(".courses-hero");
     setCover(hero, ASSETS.courses, "courses-cover-hero", "兔兔和小狮子来到知识花园课程库");
     hero?.querySelector(".courses-hero-art")?.setAttribute("aria-hidden", "true");
   }
 
-  function decorateToday() {
+  function decorateTodayHero() {
     setCover(
       document.querySelector(".today-page-hero"),
       ASSETS.today,
@@ -69,17 +101,6 @@
     beforeNode.parentElement?.insertBefore(figure, beforeNode);
   }
 
-  function decorateTraining() {
-    const summary = document.querySelector(".training-summary");
-    insertBanner(
-      summary,
-      "trainingHallIllustration",
-      ASSETS.training,
-      "兔兔和小狮子在魔法训练大厅进行计算、推理和资料分析训练",
-      "能力训练大厅 · 每一次练习都在给思维升级"
-    );
-  }
-
   function decorateProgress() {
     const first = document.querySelector(".stats-page > :first-child");
     insertBanner(
@@ -91,7 +112,7 @@
     );
   }
 
-  function decorateWeekly() {
+  function decorateWeeklyHero() {
     document.getElementById("weeklyIllustration")?.remove();
     setCover(
       document.querySelector(".review-week-title"),
@@ -179,18 +200,140 @@
     card.querySelector(".exam-mini-castle")?.setAttribute("aria-hidden", "true");
   }
 
+  function decorateShortcuts() {
+    const shortcutAssets = {
+      today: ASSETS.today,
+      courses: ASSETS.courses,
+      pomodoro: pomodoroScene().src,
+      errors: ASSETS.errors,
+      exams: ASSETS.exams
+    };
+    Object.entries(shortcutAssets).forEach(([name, src]) => {
+      setPanelCover(
+        document.querySelector(`.home-shortcut.${name}`),
+        src,
+        `shortcut-illustrated shortcut-${name}-illustrated`,
+        `${name} 快捷入口插画`
+      );
+    });
+  }
+
+  function decorateHomePanels() {
+    setPanelCover(
+      document.querySelector(".home-tasks-card"),
+      ASSETS.homeTasks,
+      "home-tasks-panel-cover",
+      "兔兔和小狮子整理今日任务"
+    );
+    setPanelCover(
+      document.querySelector(".home-progress-card"),
+      ASSETS.homeProgress,
+      "home-progress-panel-cover",
+      "兔兔和小狮子仰望成长知识树"
+    );
+    setPanelCover(
+      findPanelByHeading(".home-secondary-grid .home-mini-panel", "错题本"),
+      ASSETS.homeErrors,
+      "home-errors-panel-cover",
+      "兔兔和小狮子整理错题本"
+    );
+    setPanelCover(
+      findPanelByHeading(".home-secondary-grid .home-mini-panel", "近期复盘"),
+      ASSETS.homeWeekly,
+      "home-weekly-panel-cover",
+      "兔兔和小狮子翻看近期复盘"
+    );
+  }
+
+  function decorateTodayColumns() {
+    setPanelCover(
+      document.querySelector(".today-column.morning"),
+      ASSETS.todayMorning,
+      "today-morning-panel-cover today-period-panel-cover",
+      "清晨兔兔和小狮子开始核心学习"
+    );
+    setPanelCover(
+      document.querySelector(".today-column.afternoon"),
+      ASSETS.todayAfternoon,
+      "today-afternoon-panel-cover today-period-panel-cover",
+      "午后兔兔和小狮子继续推进学习"
+    );
+    setPanelCover(
+      document.querySelector(".today-column.evening"),
+      ASSETS.todayEvening,
+      "today-evening-panel-cover today-period-panel-cover",
+      "夜晚兔兔和小狮子整理错题"
+    );
+  }
+
+  function decorateWeeklyPanels() {
+    const cards = document.querySelectorAll(".review-grid .review-card");
+    setPanelCover(
+      cards[0],
+      ASSETS.weeklyModules,
+      "weekly-modules-panel-cover weekly-detail-panel-cover",
+      "兔兔和小狮子检查本周模块花圃"
+    );
+    setPanelCover(
+      cards[1],
+      ASSETS.weeklySummary,
+      "weekly-summary-panel-cover weekly-detail-panel-cover",
+      "兔兔和小狮子一起整理本周小结"
+    );
+  }
+
+  function decorateTrainingPanels() {
+    document.getElementById("trainingHallIllustration")?.remove();
+    setPanelCover(
+      document.querySelector(".training-summary"),
+      ASSETS.training,
+      "training-summary-panel-cover",
+      "兔兔与小狮子的训练大厅总览"
+    );
+
+    const zones = {
+      arithmetic: [ASSETS.trainingArithmetic, "计算能力训练"],
+      reasoning: [ASSETS.trainingReasoning, "数字推理训练"],
+      thinking: [ASSETS.trainingThinking, "思维能力训练"],
+      data: [ASSETS.trainingData, "资料分析专项训练"]
+    };
+    Object.entries(zones).forEach(([name, [src, label]]) => {
+      setPanelCover(
+        document.querySelector(`.training-zone.${name}`),
+        src,
+        `training-zone-panel-cover training-zone-${name}-cover`,
+        label
+      );
+    });
+
+    const historyCard = document.querySelector(".training-history-card");
+    if (historyCard?.querySelector(".training-empty")) {
+      setPanelCover(
+        historyCard,
+        ASSETS.trainingHistoryEmpty,
+        "training-history-empty-cover",
+        "兔兔和小狮子等待开启第一轮训练"
+      );
+    }
+  }
+
   function decorate() {
     decorateCourses();
-    decorateToday();
+    decorateTodayHero();
     decoratePlan();
     decorateErrors();
-    decorateTraining();
     decoratePomodoro();
     decorateHomePomodoro();
     decorateExamCountdown();
     decorateProgress();
-    decorateWeekly();
+    decorateWeeklyHero();
     decorateExams();
+
+    decorateShortcuts();
+    decorateHomePanels();
+    decorateTodayColumns();
+    decorateWeeklyPanels();
+    decorateTrainingPanels();
   }
 
   let scheduled = false;
