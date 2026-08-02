@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f3ff" />
+  <title>Benny Study · 公考作战系统</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" data-page="home" type="button">
+        <span class="brand-mark">🐰</span>
+        <span><strong>Benny Study</strong><small>小兔上岸作战系统</small></span>
+      </button>
+      <nav id="mainNav" class="main-nav" aria-label="主导航"></nav>
+      <div class="top-actions">
+        <button id="quickPomodoro" class="icon-button" type="button" title="番茄钟">⏱</button>
+        <button id="settingsButton" class="icon-button" type="button" title="设置与云存档">⚙</button>
+      </div>
+    </header>
+
+    <main id="app" class="content"></main>
+  </div>
+
+  <dialog id="settingsDialog" class="dialog">
+    <form method="dialog" class="dialog-card">
+      <div class="dialog-head">
+        <div><h2>设置与 GitHub 云存档</h2><p>令牌只保存在当前浏览器，不会写入仓库。</p></div>
+        <button class="icon-button" value="cancel" aria-label="关闭" type="submit">✕</button>
+      </div>
+      <div class="form-grid">
+        <label>GitHub 仓库<input id="repoInput" value="lingwangshu018/Benny-study" /></label>
+        <label>分支<input id="branchInput" value="main" /></label>
+        <label class="span-2">Fine-grained Token<input id="tokenInput" type="password" placeholder="需要 Contents: Read and write" /></label>
+        <label class="span-2">云存档路径<input id="cloudPathInput" value="data/benny-study-backup.json" /></label>
+      </div>
+      <div class="dialog-actions">
+        <button id="saveSettingsButton" class="secondary" type="button">保存设置</button>
+        <button id="pullCloudButton" class="secondary" type="button">从 GitHub 恢复</button>
+        <button id="pushCloudButton" class="primary" type="button">备份到 GitHub</button>
+      </div>
+      <p id="cloudStatus" class="status-line" aria-live="polite"></p>
+    </form>
+  </dialog>
+
+  <input id="excelInput" type="file" accept=".xlsx,.xls" hidden />
+  <input id="jsonInput" type="file" accept="application/json,.json" hidden />
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
