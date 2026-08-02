@@ -42,6 +42,8 @@
     </section>`;
   }
 
+  window.shortcutCards = shortcutCards;
+
   renderHome = function renderHome() {
     const total = state.courses.length;
     const done = state.courses.filter(c => c.done).length;
