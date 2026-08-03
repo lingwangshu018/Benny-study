@@ -1,0 +1,12 @@
+{
+  "appId": "com.lingwangshu.bennystudy",
+  "appName": "Benny Study",
+  "webDir": "www",
+  "backgroundColor": "#eef4ff",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}
