@@ -1,0 +1,21 @@
+{
+  "name": "benny-study",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Benny Study web app and Android APK build configuration",
+  "type": "module",
+  "scripts": {
+    "prepare:android": "node scripts/prepare-android-web.mjs",
+    "android:sync": "npm run prepare:android && npx cap sync android",
+    "android:open": "npx cap open android"
+  },
+  "devDependencies": {
+    "@capacitor/android": "8.4.2",
+    "@capacitor/assets": "3.0.5",
+    "@capacitor/cli": "8.4.2",
+    "@capacitor/core": "8.4.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
