@@ -1,0 +1,8 @@
+node_modules/
+www/
+android/
+resources/
+.gradle/
+*.apk
+*.aab
+.DS_Store
