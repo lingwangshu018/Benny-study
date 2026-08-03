@@ -1,4 +1,4 @@
-// Benny Study · 本地学习视频库 v0.1
+// Benny Study · 本地学习视频库 v0.2
 (function () {
   const PAGE_ID = "videos";
   const DB_NAME = "benny-study-media";
@@ -11,6 +11,7 @@
 
   let dbPromise = null;
   let selectedVideoId = localStorage.getItem(ACTIVE_VIDEO_KEY) || "";
+  let activeContext = null;
   let activeObjectUrl = "";
   let lastProgressSaveAt = 0;
   let pageGeneration = 0;
@@ -38,31 +39,6 @@
     return dbPromise;
   }
 
-  async function useStore(mode, callback) {
-    const db = await openDatabase();
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction(STORE_NAME, mode);
-      const store = tx.objectStore(STORE_NAME);
-      let result;
-      try {
-        result = callback(store);
-      } catch (error) {
-        reject(error);
-        return;
-      }
-      tx.oncomplete = () => resolve(result);
-      tx.onerror = () => reject(tx.error || new Error("本地视频库操作失败。"));
-      tx.onabort = () => reject(tx.error || new Error("本地视频库操作已取消。"));
-    });
-  }
-
-  async function requestResult(request) {
-    return new Promise((resolve, reject) => {
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error || new Error("读取视频失败。"));
-    });
-  }
-
   async function getAllVideos() {
     const db = await openDatabase();
     return new Promise((resolve, reject) => {
@@ -78,22 +54,40 @@
   }
 
   async function getVideo(id) {
+    if (!id) return null;
     const db = await openDatabase();
-    const tx = db.transaction(STORE_NAME, "readonly");
-    return requestResult(tx.objectStore(STORE_NAME).get(id));
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, "readonly");
+      const request = tx.objectStore(STORE_NAME).get(id);
+      request.onsuccess = () => resolve(request.result || null);
+      request.onerror = () => reject(request.error || new Error("视频读取失败。"));
+    });
   }
 
   async function putVideo(record) {
-    return useStore("readwrite", store => store.put(record));
+    const db = await openDatabase();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, "readwrite");
+      tx.objectStore(STORE_NAME).put(record);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error || new Error("视频保存失败。"));
+      tx.onabort = () => reject(tx.error || new Error("视频保存已取消。"));
+    });
   }
 
-  async function deleteVideo(id) {
-    return useStore("readwrite", store => store.delete(id));
+  async function removeVideo(id) {
+    const db = await openDatabase();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, "readwrite");
+      tx.objectStore(STORE_NAME).delete(id);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error || new Error("视频删除失败。"));
+      tx.onabort = () => reject(tx.error || new Error("视频删除已取消。"));
+    });
   }
 
   function newId() {
-    if (globalThis.crypto?.randomUUID) return crypto.randomUUID();
-    return `video-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    return globalThis.crypto?.randomUUID?.() || `video-${Date.now()}-${Math.random().toString(36).slice(2)}`;
   }
 
   function formatBytes(bytes) {
@@ -133,9 +127,7 @@
           <small id="studyVideoStorage">正在读取本地空间…</small>
         </div>
       </header>
-
       <div id="studyVideoStatus" class="video-library-status" aria-live="polite"></div>
-
       <div class="video-library-layout">
         <article class="video-player-card" id="studyVideoPlayerHost">
           <div class="video-player-empty">
@@ -145,18 +137,13 @@
             <button class="primary" id="studyVideoEmptyImport" type="button">选择本地视频</button>
           </div>
         </article>
-
         <aside class="video-queue-card">
           <header>
             <div><h2>今日视频篮子</h2><p>看完一条，删掉一条。</p></div>
             <span class="video-queue-count" id="studyVideoCount">0 条</span>
           </header>
-          <div class="video-queue" id="studyVideoQueue">
-            <div class="video-queue-loading">正在打开视频篮子…</div>
-          </div>
-          <footer>
-            <span>视频只保存在当前浏览器或 APK，不会上传 GitHub，也不会进入 JSON 存档。</span>
-          </footer>
+          <div class="video-queue" id="studyVideoQueue"><div class="video-queue-loading">正在打开视频篮子…</div></div>
+          <footer><span>视频只保存在当前浏览器或 APK，不会上传 GitHub，也不会进入 JSON 存档。</span></footer>
         </aside>
       </div>
     </section>`;
@@ -202,35 +189,8 @@
     </article>`;
   }
 
-  async function refreshLibrary(generation = pageGeneration) {
-    const videos = await getAllVideos();
-    if (generation !== pageGeneration || currentPage !== PAGE_ID) return;
-
-    const queue = document.getElementById("studyVideoQueue");
-    const count = document.getElementById("studyVideoCount");
-    if (!queue || !count) return;
-
-    count.textContent = `${videos.length} 条`;
-    queue.innerHTML = videos.length
-      ? videos.map(queueItem).join("")
-      : `<div class="video-queue-empty"><span>🌙</span><strong>视频篮子是空的</strong><p>每天只放今天要看的，看完就清空。</p></div>`;
-
-    await updateStorageLabel(videos);
-
-    if (!videos.length) {
-      selectedVideoId = "";
-      localStorage.removeItem(ACTIVE_VIDEO_KEY);
-      showEmptyPlayer();
-      return;
-    }
-
-    if (!videos.some(item => item.id === selectedVideoId)) selectedVideoId = videos[0].id;
-    localStorage.setItem(ACTIVE_VIDEO_KEY, selectedVideoId);
-    await loadVideo(selectedVideoId, generation);
-  }
-
   function showEmptyPlayer() {
-    revokeActiveUrl();
+    clearActivePlayer(false);
     const host = document.getElementById("studyVideoPlayerHost");
     if (!host) return;
     host.innerHTML = `<div class="video-player-empty">
@@ -248,7 +208,77 @@
     activeObjectUrl = "";
   }
 
+  function snapshotContext(context, completed = false) {
+    if (!context?.player || !context.record) return null;
+    const player = context.player;
+    const record = context.record;
+    const duration = Number(player.duration) || Number(record.duration) || 0;
+    const currentTime = Number(player.currentTime) || Number(record.currentTime) || 0;
+    return {
+      ...record,
+      currentTime,
+      duration,
+      playbackRate: Number(player.playbackRate) || Number(record.playbackRate) || 1,
+      completed: completed || Boolean(record.completed) || (duration > 0 && currentTime >= duration - 1),
+      updatedAt: new Date().toISOString()
+    };
+  }
+
+  async function saveActivePlayer({ clear = false, completed = false } = {}) {
+    const context = activeContext;
+    if (!context) {
+      if (clear) revokeActiveUrl();
+      return;
+    }
+    const snapshot = snapshotContext(context, completed);
+    if (clear) {
+      activeContext = null;
+      try { context.player.pause(); } catch {}
+      revokeActiveUrl();
+    } else {
+      context.record = snapshot;
+    }
+    if (snapshot) {
+      await putVideo(snapshot);
+      updateQueueProgress(snapshot);
+    }
+  }
+
+  function clearActivePlayer(save = true) {
+    if (save) saveActivePlayer({ clear: true }).catch(() => {});
+    else {
+      activeContext = null;
+      revokeActiveUrl();
+    }
+  }
+
+  async function refreshLibrary(generation = pageGeneration) {
+    const videos = await getAllVideos();
+    if (generation !== pageGeneration || currentPage !== PAGE_ID) return;
+    const queue = document.getElementById("studyVideoQueue");
+    const count = document.getElementById("studyVideoCount");
+    if (!queue || !count) return;
+
+    count.textContent = `${videos.length} 条`;
+    queue.innerHTML = videos.length
+      ? videos.map(queueItem).join("")
+      : `<div class="video-queue-empty"><span>🌙</span><strong>视频篮子是空的</strong><p>每天只放今天要看的，看完就清空。</p></div>`;
+    await updateStorageLabel(videos);
+
+    if (!videos.length) {
+      selectedVideoId = "";
+      localStorage.removeItem(ACTIVE_VIDEO_KEY);
+      showEmptyPlayer();
+      return;
+    }
+    if (!videos.some(item => item.id === selectedVideoId)) selectedVideoId = videos[0].id;
+    localStorage.setItem(ACTIVE_VIDEO_KEY, selectedVideoId);
+    await loadVideo(selectedVideoId, generation);
+  }
+
   async function loadVideo(id, generation = pageGeneration) {
+    if (!id) return;
+    await saveActivePlayer({ clear: true });
     const record = await getVideo(id);
     if (!record || generation !== pageGeneration || currentPage !== PAGE_ID) return;
 
@@ -256,7 +286,6 @@
     localStorage.setItem(ACTIVE_VIDEO_KEY, id);
     document.querySelectorAll(".video-queue-item").forEach(item => item.classList.toggle("is-active", item.dataset.videoId === id));
 
-    revokeActiveUrl();
     activeObjectUrl = URL.createObjectURL(record.blob);
     const savedRate = Number(record.playbackRate || localStorage.getItem(DEFAULT_RATE_KEY) || 1);
     const host = document.getElementById("studyVideoPlayerHost");
@@ -266,9 +295,7 @@
       <div><span>${record.completed ? "✅ 已看完" : "🎬 正在学习"}</span><h2 title="${esc(record.name)}">${esc(record.name)}</h2><p>${formatBytes(record.size)} · 导入于 ${new Date(record.addedAt).toLocaleString()}</p></div>
       <button class="danger video-finish-delete" id="studyVideoDeleteActive" type="button">看完删除</button>
     </div>
-    <div class="video-stage">
-      <video id="studyVideoPlayer" controls playsinline preload="metadata" src="${activeObjectUrl}"></video>
-    </div>
+    <div class="video-stage"><video id="studyVideoPlayer" controls playsinline preload="metadata" src="${activeObjectUrl}"></video></div>
     <div class="video-control-deck">
       <div class="video-skip-controls">
         <button class="secondary" id="studyVideoBack" type="button">↶ 10 秒</button>
@@ -284,8 +311,10 @@
     const player = document.getElementById("studyVideoPlayer");
     const rateSelect = document.getElementById("studyVideoRate");
     if (!player || !rateSelect) return;
+    activeContext = { id, record, player };
 
     player.addEventListener("loadedmetadata", async () => {
+      if (activeContext?.id !== id) return;
       const duration = Number.isFinite(player.duration) ? player.duration : 0;
       const resumeAt = Math.min(Number(record.currentTime) || 0, Math.max(0, duration - 0.25));
       if (resumeAt > 0) player.currentTime = resumeAt;
@@ -293,6 +322,7 @@
       if (duration && Math.abs((record.duration || 0) - duration) > 1) {
         record.duration = duration;
         record.updatedAt = new Date().toISOString();
+        activeContext.record = record;
         await putVideo(record);
         updateQueueProgress(record);
       }
@@ -300,25 +330,24 @@
     });
 
     player.addEventListener("timeupdate", () => {
-      updatePlayerProgress(player, record);
+      updatePlayerProgress(player, activeContext?.record || record);
       const now = Date.now();
       if (now - lastProgressSaveAt >= SAVE_INTERVAL_MS) {
         lastProgressSaveAt = now;
-        persistPlayerState(player, record).catch(() => {});
+        saveActivePlayer().catch(() => {});
       }
     });
-    player.addEventListener("pause", () => persistPlayerState(player, record).catch(() => {}));
+    player.addEventListener("pause", () => saveActivePlayer().catch(() => {}));
     player.addEventListener("ratechange", () => {
       rateSelect.value = String(player.playbackRate);
       localStorage.setItem(DEFAULT_RATE_KEY, String(player.playbackRate));
-      persistPlayerState(player, record).catch(() => {});
+      saveActivePlayer().catch(() => {});
     });
     player.addEventListener("ended", async () => {
-      record.completed = true;
-      record.currentTime = Number(player.duration) || record.currentTime;
-      await persistPlayerState(player, record, true);
+      await saveActivePlayer({ completed: true });
       setStatus("这一条看完啦！可以点“看完删除”把它从篮子里清掉。", "success");
-      document.querySelector(".video-player-heading > div > span")?.replaceChildren(document.createTextNode("✅ 已看完"));
+      const stateLabel = document.querySelector(".video-player-heading > div > span");
+      if (stateLabel) stateLabel.textContent = "✅ 已看完";
     });
     player.addEventListener("error", () => setStatus("这个视频格式暂时无法播放。优先使用 MP4（H.264/AAC）会最稳。", "error"));
 
@@ -342,26 +371,28 @@
     updateQueueProgress({ ...record, currentTime: current, duration });
   }
 
+  function findQueueItem(id) {
+    return [...document.querySelectorAll(".video-queue-item")].find(item => item.dataset.videoId === id) || null;
+  }
+
   function updateQueueProgress(record) {
-    const item = document.querySelector(`.video-queue-item[data-video-id="${CSS.escape(record.id)}"]`);
+    const item = findQueueItem(record.id);
     if (!item) return;
     const pct = progressOf(record);
     const bar = item.querySelector(".video-queue-progress i");
     const label = item.querySelector("em");
+    const icon = item.querySelector(".video-queue-icon");
     if (bar) bar.style.width = `${pct}%`;
     if (label) label.textContent = record.completed || pct >= 99 ? "已看完" : pct > 0 ? `已看 ${pct}%` : "未开始";
+    if (icon && (record.completed || pct >= 99)) icon.textContent = "✅";
     item.classList.toggle("is-completed", Boolean(record.completed || pct >= 99));
   }
 
-  async function persistPlayerState(player, record, completed = false) {
-    if (!player || !record) return;
-    record.currentTime = Number(player.currentTime) || 0;
-    record.duration = Number(player.duration) || Number(record.duration) || 0;
-    record.playbackRate = Number(player.playbackRate) || 1;
-    record.completed = completed || (record.duration > 0 && record.currentTime >= record.duration - 1);
-    record.updatedAt = new Date().toISOString();
-    await putVideo(record);
-    updateQueueProgress(record);
+  function mimeFor(file) {
+    if (file.type) return file.type;
+    if (/\.webm$/i.test(file.name)) return "video/webm";
+    if (/\.mov$/i.test(file.name)) return "video/quicktime";
+    return "video/mp4";
   }
 
   async function importFiles(fileList) {
@@ -370,20 +401,20 @@
       setStatus("没有识别到可导入的视频文件。", "error");
       return;
     }
-
     setStatus(`正在把 ${files.length} 条视频放进今日篮子…`);
     try {
-      if (navigator.storage?.persist) navigator.storage.persist().catch(() => {});
+      navigator.storage?.persist?.().catch(() => {});
       let firstId = "";
       for (const file of files) {
         const id = newId();
         if (!firstId) firstId = id;
+        const type = mimeFor(file);
         await putVideo({
           id,
           name: file.name,
-          type: file.type || "video/mp4",
+          type,
           size: file.size,
-          blob: file.slice(0, file.size, file.type || "video/mp4"),
+          blob: file.slice(0, file.size, type),
           addedAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
           currentTime: 0,
@@ -409,8 +440,8 @@
   async function confirmDelete(id, name) {
     if (!confirm(`确定删除“${name}”吗？删除后不会进入回收站。`)) return;
     try {
-      if (id === selectedVideoId) revokeActiveUrl();
-      await deleteVideo(id);
+      if (activeContext?.id === id) await saveActivePlayer({ clear: true });
+      await removeVideo(id);
       if (id === selectedVideoId) selectedVideoId = "";
       setStatus("视频已从这台设备删除。", "success");
       await refreshLibrary(pageGeneration);
@@ -439,26 +470,13 @@
     });
   }
 
-  function teardownPlayer() {
-    const player = document.getElementById("studyVideoPlayer");
-    if (player) {
-      const id = selectedVideoId;
-      getVideo(id).then(record => record && persistPlayerState(player, record)).catch(() => {});
-      player.pause();
-      player.removeAttribute("src");
-      player.load();
-    }
-    revokeActiveUrl();
-  }
-
   const originalRender = render;
   render = function renderWithVideoLibrary() {
-    teardownPlayer();
+    saveActivePlayer({ clear: true }).catch(() => {});
     if (currentPage !== PAGE_ID) {
       originalRender();
       return;
     }
-
     pageGeneration += 1;
     const generation = pageGeneration;
     document.getElementById("app").innerHTML = renderVideoPage();
@@ -467,10 +485,7 @@
   };
 
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState !== "hidden") return;
-    const player = document.getElementById("studyVideoPlayer");
-    if (!player || !selectedVideoId) return;
-    getVideo(selectedVideoId).then(record => record && persistPlayerState(player, record)).catch(() => {});
+    if (document.visibilityState === "hidden") saveActivePlayer().catch(() => {});
   });
 
   setupNav();
