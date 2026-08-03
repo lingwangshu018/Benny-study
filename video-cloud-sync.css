@@ -1,0 +1,69 @@
+/* Benny Study · GitHub 草稿 Release 视频同步 */
+.video-cloud-panel{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:14px 22px;
+  align-items:center;
+  padding:17px 19px;
+  border:1px solid rgba(126,154,215,.26);
+  border-radius:22px;
+  background:linear-gradient(135deg,rgba(246,250,255,.98),rgba(245,240,255,.94));
+  box-shadow:0 12px 28px rgba(73,98,151,.08);
+}
+.video-cloud-copy{display:flex;align-items:center;gap:13px;min-width:0}
+.video-cloud-icon{
+  width:44px;
+  height:44px;
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  border-radius:15px;
+  background:#fff;
+  box-shadow:0 8px 18px rgba(75,99,153,.1);
+  font-size:23px;
+}
+.video-cloud-copy strong{display:block;margin-bottom:3px;color:#455779;font-size:15px}
+.video-cloud-copy p{margin:0;color:#7e8ba5;font-size:12px;line-height:1.6}
+.video-cloud-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.video-cloud-auto{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:0 4px;
+  color:#657590;
+  font-size:12px;
+  font-weight:700;
+  white-space:nowrap;
+}
+.video-cloud-auto input{accent-color:#7d9fda}
+.video-cloud-status{
+  grid-column:1 / -1;
+  min-height:18px;
+  margin:0;
+  padding-top:11px;
+  border-top:1px dashed rgba(126,154,215,.24);
+  color:#8995aa;
+  font-size:11px;
+  line-height:1.55;
+}
+.video-cloud-status.is-success{color:#4d8061}
+.video-cloud-status.is-error{color:#a55263}
+.video-cloud-status.is-notice{color:#937241}
+.video-cloud-actions button:disabled{opacity:.55;cursor:wait}
+.video-stage video::cue{
+  padding:.12em .35em;
+  background:rgba(8,12,22,.76);
+  color:#fff;
+  font-size:1.08em;
+  text-shadow:0 1px 3px rgba(0,0,0,.9);
+}
+@media (max-width:860px){
+  .video-cloud-panel{grid-template-columns:1fr}
+  .video-cloud-actions{justify-content:flex-start}
+}
+@media (max-width:520px){
+  .video-cloud-panel{padding:15px;border-radius:19px}
+  .video-cloud-actions{display:grid;grid-template-columns:1fr 1fr}
+  .video-cloud-actions button{width:100%}
+  .video-cloud-auto{grid-column:1 / -1}
+}
