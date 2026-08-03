@@ -1,0 +1,50 @@
+name: Build Benny Study APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.html"
+      - "**/*.css"
+      - "**/*.js"
+      - "assets/**"
+      - "data/**"
+      - "package.json"
+      - "capacitor.config.json"
+      - "scripts/**"
+      - ".github/signing/**"
+      - ".github/workflows/build-android-apk.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: benny-study-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: android-actions/setup-android@v3
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build APK
+        run: bash scripts/build-android-ci.sh
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Benny-Study-APK-${{ github.run_number }}
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 30
