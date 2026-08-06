@@ -1,0 +1,38 @@
+/* Benny Study · 视频下载通道状态 */
+.video-cloud-proxy-state{
+  grid-column:1 / -1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:-4px;
+  padding:10px 12px;
+  border-radius:14px;
+  font-size:12px;
+  line-height:1.5;
+}
+.video-cloud-proxy-state.is-ready{
+  background:#edf9f1;
+  color:#4d8061;
+}
+.video-cloud-proxy-state.is-missing{
+  background:#fff6e8;
+  color:#946b33;
+}
+.video-cloud-proxy-state button{
+  flex:0 0 auto;
+  padding:6px 10px;
+  border:1px solid currentColor;
+  border-radius:999px;
+  background:rgba(255,255,255,.78);
+  color:inherit;
+  font:inherit;
+  font-weight:800;
+  cursor:pointer;
+}
+#videoProxyLabel input{
+  margin-top:6px;
+}
+@media (max-width:560px){
+  .video-cloud-proxy-state{align-items:flex-start;flex-direction:column}
+}
