@@ -1,7 +1,7 @@
-// Benny Study · 学习统计中心 v0.2
+// Benny Study · 学习统计中心 v0.3
 (function () {
   function toISO(value) {
-    return String(value || "").slice(0, 10);
+    return window.BennyLocalTime?.dateKey(value) || String(value || "").slice(0, 10);
   }
   function startOfWeekISO() {
     const d = new Date();
