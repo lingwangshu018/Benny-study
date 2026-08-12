@@ -1,4 +1,4 @@
-// Benny Study · 自动周复盘与考试中心 v0.2
+// Benny Study · 自动周复盘与考试中心 v0.3
 (function () {
   state.weekly ||= [];
   state.examNotes ||= {};
@@ -26,7 +26,7 @@
     return h ? `${h} 小时${m ? ` ${m} 分` : ""}` : `${m} 分钟`;
   }
   function inRange(value, start, end) {
-    const date = String(value || "").slice(0, 10);
+    const date = window.BennyLocalTime?.dateKey(value) || String(value || "").slice(0, 10);
     return date >= start && date <= end;
   }
   function weekStats(start, end) {
