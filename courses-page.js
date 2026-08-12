@@ -1,4 +1,4 @@
-// Benny Study · 完整课程库页面 v0.1
+// Benny Study · 完整课程库页面 v0.2
 (function(){
   let filters={phase:"全部",status:"全部",query:""};
   function filtered(){return state.courses.filter(c=>{
@@ -16,10 +16,24 @@
   renderCourses=function renderCourses(){const s=stats(),list=filtered();return `<section class="courses-shell">
     <div class="courses-hero"><div><span class="badge">📚 一节都不会丢</span><h1>完整课程库</h1><p>按阶段、完成状态或关键词查找课程。导入 Excel 后，所有课程都会保留并参与自动排课。</p></div><div class="courses-hero-art">🐰📖🦁</div></div>
     <div class="courses-stats"><div class="course-stat"><span>全部课程</span><strong>${s.total}</strong></div><div class="course-stat"><span>已经完成</span><strong>${s.done}</strong></div><div class="course-stat"><span>剩余课程</span><strong>${s.remain}</strong></div><div class="course-stat"><span>今日安排</span><strong>${s.today}</strong></div></div>
-    <div class="courses-toolbar"><label>搜索课程<input id="courseSearch" value="${esc(filters.query)}" placeholder="模块、章节或课程名"></label><label>阶段<select id="coursePhase"><option>全部</option>${PHASES.map(p=>`<option ${filters.phase===p?'selected':''}>${p}</option>`).join('')}</select></label><label>状态<select id="courseStatus"><option>全部</option><option ${filters.status==='未完成'?'selected':''}>未完成</option><option ${filters.status==='已完成'?'selected':''}>已完成</option></select></label><button class="primary" id="importExcel">导入 Excel</button><button class="secondary" id="autoSchedule">自动排课</button></div>
+    <div class="courses-toolbar"><label>搜索课程<input id="courseSearch" value="${esc(filters.query)}" placeholder="模块、章节或课程名"></label><label>阶段<select id="coursePhase"><option>全部</option>${PHASES.map(p=>`<option ${filters.phase===p?'selected':''}>${p}</option>`).join('')}</select></label><label>状态<select id="courseStatus"><option>全部</option><option ${filters.status==='未完成'?'selected':''}>未完成</option><option ${filters.status==='已完成'?'selected':''}>已完成</option></select></label><button class="primary" id="importExcel">导入 Excel</button><button class="secondary" id="autoSchedule">自动排课</button><button class="danger" id="clearCourses" type="button" ${s.total?'':'disabled'}>清空课程表</button></div>
     <div class="course-list">${list.length?list.map(card).join(''):`<div class="courses-empty">没有符合条件的课程。换一个筛选条件试试吧 🌱</div>`}</div>
     <div class="toolbar"><button class="secondary" id="exportAllJson">导出全部存档</button><button class="secondary" id="importAllJson">导入存档</button></div>
   </section>`;};
   document.addEventListener('input',e=>{if(e.target.id==='courseSearch'){filters.query=e.target.value;render();}});
   document.addEventListener('change',e=>{if(e.target.id==='coursePhase'){filters.phase=e.target.value;render();}if(e.target.id==='courseStatus'){filters.status=e.target.value;render();}});
+  document.addEventListener('click',e=>{
+    const button=e.target.closest?.('#clearCourses');
+    if(!button||button.disabled)return;
+    const count=state.courses.length;
+    if(!count)return;
+    const ok=confirm(`确定清空当前导入的 ${count} 项课程吗？\n\n这会同时清空旧的每日排课，但不会删除错题、周复盘、考试记录和其他存档。`);
+    if(!ok)return;
+    state.courses=[];
+    state.plan=[];
+    filters={phase:"全部",status:"全部",query:""};
+    saveState();
+    render();
+    alert('旧课程表和旧排课已经清空，可以重新导入新版课程表啦。');
+  });
 })();
