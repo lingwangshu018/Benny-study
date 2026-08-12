@@ -1,4 +1,4 @@
-// Benny Study · 番茄钟与专注记录 v0.2
+// Benny Study · 番茄钟与专注记录 v0.3
 (function () {
   state.focusSessions ||= [];
   state.focusSettings ||= { focusMinutes: 25, shortBreak: 5, longBreak: 15 };
@@ -13,9 +13,15 @@
     originalSaveState();
   };
 
+  function recordDateKey(value) {
+    return window.BennyLocalTime?.dateKey(value) || String(value || "").slice(0, 10);
+  }
+  function recordTimeLabel(value) {
+    return window.BennyLocalTime?.dateTimeLabel(value) || String(value || "").replace("T", " ").slice(0, 16);
+  }
   function todaySessions() {
     const today = dateISO(new Date());
-    return state.focusSessions.filter(x => String(x.endedAt || x.date || "").slice(0, 10) === today && x.status === "completed");
+    return state.focusSessions.filter(x => recordDateKey(x.endedAt || x.date) === today && x.status === "completed");
   }
   function weekStartISO() {
     const d = new Date();
@@ -96,7 +102,7 @@
 
   window.renderPomodoro = function renderPomodoro() {
     const today = todaySessions();
-    const week = state.focusSessions.filter(x => x.status === "completed" && String(x.endedAt || x.date || "").slice(0, 10) >= weekStartISO());
+    const week = state.focusSessions.filter(x => x.status === "completed" && recordDateKey(x.endedAt || x.date) >= weekStartISO());
     const totalToday = completedMinutes(today);
     const totalWeek = completedMinutes(week);
     const pct = timer.total ? Math.round((1 - timer.remaining / timer.total) * 100) : 0;
@@ -130,7 +136,7 @@
           </article>
           <article class="focus-history-card">
             <header><div><h3>最近专注</h3><p>每次认真坐下来的时间，都算数。</p></div><button class="secondary" id="exportFocus" type="button">导出记录</button></header>
-            <div class="focus-records">${recent.length ? recent.map(x=>`<div class="focus-record"><span class="focus-record-icon">${x.status==='completed'?'🍅':'🌱'}</span><div><strong>${esc(x.task || '自由专注')}</strong><small>${String(x.endedAt || x.date || '').replace('T',' ').slice(0,16)} · ${x.status==='completed'?'已完成':'提前结束'}</small></div><span class="focus-record-time">${x.actualMinutes || 0} 分</span></div>`).join("") : `<div class="focus-empty">还没有专注记录，开始第一轮吧 🐰</div>`}</div>
+            <div class="focus-records">${recent.length ? recent.map(x=>`<div class="focus-record"><span class="focus-record-icon">${x.status==='completed'?'🍅':'🌱'}</span><div><strong>${esc(x.task || '自由专注')}</strong><small>${recordTimeLabel(x.endedAt || x.date)} · ${x.status==='completed'?'已完成':'提前结束'}</small></div><span class="focus-record-time">${x.actualMinutes || 0} 分</span></div>`).join("") : `<div class="focus-empty">还没有专注记录，开始第一轮吧 🐰</div>`}</div>
           </article>
         </div>
       </section>`;
